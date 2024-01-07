@@ -1,0 +1,75 @@
+ajax__----------------------------------------------------------------------__store
+-------------------------
+      <div  id="msg"  >
+
+      </div>
+        <form  method="post" id="form"  >
+            <input type="text" name="name" >
+            <input type="text" name="password">
+            <button  id="click" >click</button>
+        </form>
+        
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#click').click(function(e){
+                    var dormdata=$('#form').serialize();
+                    e.preventDefault();
+                    var name=$('input[name="name"]').val();
+                    var password=$('input[name="password"]').val();
+
+                    $.ajax({
+                        method:"post",
+                        url:"{{ url('store') }}",
+                        data:{
+                            "name" :name,
+                            "password":password,
+                            _token: '{!! csrf_token() !!}',
+                        },
+                                dataType: "json",
+                                success: function(data) {
+                                //   $('#msg').attr(class)="alert alert-success";
+                                $('input[name="name"]').val("");
+                   $('input[name="password"]').val("");
+                                  $('#msg').append("<li class='alert alert-success' role='alert' >"+data['msg']+  "</li>");
+
+                                },
+
+                        error: function(jqXHR, textStatus, errorThrown) {
+                        console.log("AJAX Error:", textStatus, errorThrown);
+                        $('#msg').append("<li class='alert alert-danger' role='alert' >"+data['msg']+  "</li>");
+
+                        }
+                    });
+                });
+                });
+
+ajax ------------- ---------------------------------------------------------------------------------2 select box
+<script>
+        $(document).ready(function() {
+            $('select[name="Section"]').on('change', function() {
+                var SectionId = $(this).val();
+                if (SectionId) {
+                    $.ajax({
+                        url: "{{URL::to('section') }}/" + SectionId,
+                        type: "GET",
+                        dataType: "json",
+                        success: function(data) {
+                            $('select[name="product"]').empty();
+                            $.each(data, function(key, value) {
+                                $('select[name="product"]').append('<option value="' +
+                                    value + '">' + value + '</option>');
+                            });
+                        },
+                    });
+                } else {
+                    console.log('AJAX load did not work');
+                }
+            });
+        });
+    </script>
+
+
+
+
+
+        </script>

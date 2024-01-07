@@ -1,0 +1,51 @@
+--------config user----------
+$ git config --global user.name "ramadan"
+--------config password--------------
+ git config --global user.email "ramadanmohamed@gmail.com"
+-------التاكد من الكونفج تمم-------------
+$  git config user.name
+$  git config user.email
+-----all config -------------------
+$ git config --list
+---------all command ---------
+git 
+--------creatr propositie---------
+$ git init "myproject"
+-------status git----------
+$ git status
+--------------------------------------------------------------مع بعض دول
+--------add file ---------
+$ touch index.html
+$ touch file.css
+---------add file-----------
+$ git add index.html file.css
+---------add------------
+$ git commit -m"create index.html"
+----changesتاريخ التعديلات ومين الي عمه وايه التعديل commit----------
+$ git log
+--------------------------------ثend---------------
+------------للرجوع الي التعديلات 
+checkout idcommit الي عاوز اقف عنده
+git checkout 86ab25c47235a5eaee7c8f9dae03774c1644cd90
+-------------branch---------
+git branch
+----------- create new branch----------
+git branch ramadan
+------------ access in branch --------
+git checkout ramadan
+-------------------------
+--------------دمج branch بتاعي مع master
+ git merge ramadan
+----------------------------------------------git hub------------------------------------------------
+----------check connection in github---------
+$ git remote -v
+------add connection in github---
+git remote add origin https://github.com/ramadan123462y/Blog.git
+كدا كل الداتا وصلت
+---------------------push------ عاوز ادخل بيانات---------
+$ git push -u origin master
+---------------------pull------عاوز اسحب بيانات---------
+git pull origin master
+
+
+

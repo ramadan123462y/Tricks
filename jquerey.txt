@@ -1,0 +1,17 @@
+<script>
+    $(document).ready(function() {
+        $('#delete_grade').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget); //
+        // استماع إلى الحدث "click" على الزر
+
+            // الحصول على قيمة البيانات المخزنة في الزر
+            var id = button.data('delete_id');
+            var modal = $(this);
+            console.log(id);
+            modal.find('#m_d_id').val(id);
+            // تعيين قيمة البيانات في حقل مخفي داخل النموذج المودال
+            // فتح النموذج المودال
+
+        });
+    });
+</script>

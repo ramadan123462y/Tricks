@@ -1,0 +1,37 @@
+1-Configmailgune
+2-laravel mail
+
+1-composer require symfony/mailgun-mailer symfony/http-client
+2-config/services.php
+
+'mailgun' => [
+    'domain' => env('MAILGUN_DOMAIN'),
+    'secret' => env('MAILGUN_SECRET'),
+],
+---config\mail.php
+ 'default' => env('MAIL_MAILER', 'mailgun'),
+------
+
+3-.env
+MAIL_MAILER=mailgun
+
+بشيلهم من env--------------
+MAIL_FROM_ADDRESS="hello@example.com"
+MAIL_FROM_NAME="${APP_NAME}"
+///////
+--------------------------
+MAILGUN_DOMAIN=sandbox3d4f5820f0f141da8d0151a74002dbe0.mailgun.org
+MAILGUN_SECRET=ada9803f55c3fa351d22ae60f1126c44-e5475b88-33c46ec4
+
+4-C:\xampp\htdocs\project\clean_invoices\config\mail.php
+ 'from' => [
+        'address' => env('MAIL_FROM_ADDRESS', 'system@gmail.com'),   //من
+        'name' => env('MAIL_FROM_NAME', 'Example'), الاسم الي جاي منه
+    ],
+
+
+
+------------------------------------
+5-php artisan make:mail OrderShipped --markdown=emails.orders.shipped
+
+6- Mail::to($request->user())->send(new OrderShipped($order));

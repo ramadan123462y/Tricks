@@ -1,0 +1,1 @@
+ 'Classroom_id'=>'required|unique:fees,classroom_id,'.$this->id,

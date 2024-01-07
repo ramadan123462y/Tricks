@@ -1,0 +1,44 @@
+ 'photos_parents' => [
+            'driver' => 'local',
+            'root' => public_path('Photoes'),
+            'throw' => false,
+        ],
+
+------------------------------
+     foreach( $request->file('photos') as $photo){
+
+
+        $photo->storeAs('بيتنشا مع كل صوره   folde', ' $photo->getClientOriginalName','   disk');
+       }
+
+       echo "good";
+
+---------dleter folder and data
+  public function delete($request)
+    {
+
+
+
+        $student = Student::findorfail($request->id_model);
+        $student->images()->delete();
+        $student->delete();
+
+
+        $path = "Student_attachement/" . $student->id;
+        $folderPath = public_path($path);
+
+        // delete all files inside the folder
+        foreach(glob($folderPath.'/*') as $file){
+            if(is_file($file)) {
+                unlink($file);
+            }
+        }
+
+        // delete the folder
+        if (is_dir($folderPath)) {
+            rmdir($folderPath);
+            return redirect()->back()->with('message', " Data && Folder Images Deleted Successfully! ");
+        } else {
+            return redirect()->back()->withErrors(['error' => "Folder not exist"]);
+        }
+    }

@@ -1,0 +1,11 @@
+  try{
+
+          /////
+            return redirect()->back()->with('message','Data added Successfully');
+
+        }catch(\Exception $e){
+
+
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+
+        }

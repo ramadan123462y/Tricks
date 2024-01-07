@@ -1,0 +1,41 @@
+1-https://codeanddeploy.com/blog/laravel/laravel-8-user-roles-and-permissions-step-by-step-tutorial
+
+الباكدج في اخر المشروع 
+هناخد منها بس middleware و database tr' واتعامل انا مع مساعده الباكدج	
+middle ware
+
+php artisan make:middleware CheckPermission
+
+
+
+------------------------
+namespace App\Http\Middleware;
+
+use Closure;
+use Spatie\Permission\Exceptions\UnauthorizedException;
+
+class CheckPermission
+{
+    public function handle($request, Closure $next, ...$permissions)
+    {
+        if (!auth()->user()->hasPermissionTo($permissions)) {
+            throw UnauthorizedException::forPermissions($permissions);
+        }
+
+        return $next($request);
+    }
+}
+-------------------
+protected $routeMiddleware = [
+    // ...
+    'permission' => \App\Http\Middleware\CheckPermission::class,
+];
+----------------------
+  Route::get('/', 'index')->middleware('permission:الفواتير');
+        Route::get('creat_invoice', 'create_invoice')->middleware('permission:اضافة فاتورة');
+        Route::post('store_invoice', 'store_invoice')->middleware('permission:اضافة فاتورة');
+        Route::get('edit_invoice/{id}', 'edit_invoice')->middleware('permission:تعديل الفاتورة');
+        Route::get('getproducts/{id}', 'getproducts')->middleware('permission:الفواتير');
+        Route::post('update_invoice/{id}', 'update_invoice')->middleware('permission:تعديل الفاتورة');
+        Route::get('delete_invoice/{id}', 'delete_invoice')->middleware('permission:حذف الفاتورة');
+        Route::post('update_status', 'update_status')->middleware('permission:تغير حالة الدفع');																																			

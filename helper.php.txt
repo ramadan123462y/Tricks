@@ -1,0 +1,35 @@
+In this step, you need to create app/Helpers/helpers.php in your laravel project and put the following code in that file:
+
+
+if (! function_exists('convertYmdToMdy')) {
+    function convertYmdToMdy($date)
+    {
+        return Carbon::createFromFormat('Y-m-d', $date)->format('m-d-Y');
+    }
+}
+
+
+"autoload": {
+
+    "psr-4": {
+
+        "App\\": "app/",
+
+        "Database\\Factories\\": "database/factories/",
+
+        "Database\\Seeders\\": "database/seeders/"
+
+    },
+
+    "files": [
+
+        "app/Helpers/helpers.php"
+
+    ]
+
+},
+
+
+composer dump-autoload
+
+  

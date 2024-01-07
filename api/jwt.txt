@@ -1,0 +1,10 @@
+https://laravelcode.com/post/how-to-authenticate-in-laravel-8-jwt
+
+مع العلم ان provider مش بيتضاف 
+
+
+https://stackoverflow.com/questions/40390141/laravel-and-jwt-auth-how-to-check-if-the-user-is-logged-in
+
+
+بتستخدم للتاكد من صحه token structure وانه مسجل في jwt فقط لاغير يعني مش بيعرف guard فهنا بنستخدم ِAuth::guard('wjsf')->سبيالت
+ $user = JWTAuth::setToken($request->header('token'))->authenticate();

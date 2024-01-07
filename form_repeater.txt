@@ -1,0 +1,165 @@
+https://stackoverflow.com/questions/67859603/jquery-multiple-form-repeater
+//--------------------------------------------
+
+   <form method="POST" action="{{ url('cashier/store') }}">
+                        @csrf
+                        <div class="row targetDiv" id="div0">
+                            <div class="col-md-12">
+                                <div id="group1" class="fvrduplicate">
+                                    <div data-repeater-list="kt_docs_repeater_basic">
+                                        <div data-repeater-item>
+                                            <div class="row entry">
+                                                <div class="col-xs-12 col-md-2">
+                                                    <div class="form-group">
+                                                        <label>القسم</label>
+                                                        <select name="sections[]" class="form-control form-control-sm">
+                                                            @foreach (\App\Models\Section::all() as $section)
+                                                                <option value="{{ $section->id }}">
+                                                                    {{ $section->section_name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-md-3">
+                                                    <div class="form-group">
+                                                        <label>المنتج</label>
+                                                        <select name="products[]" class="form-control form-control-sm"></select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-md-2">
+                                                    <div class="form-group">
+                                                        <label>الكمية</label>
+                                                        <input class="form-control form-control-sm" name="mounts[]" type="text"
+                                                            placeholder="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-md-2">
+                                                    <div class="form-group">
+                                                        <label>الخصم</label>
+                                                        <input class="form-control form-control-sm" name="discounts[]" type="text"
+                                                            placeholder="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-md-1">
+                                                    <div class="form-group">
+                                                        <label>السعر</label>
+                                                        <input class="form-control form-control-sm" name="prices[]" type="text"
+                                                            placeholder="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-md-1">
+                                                    <div class="form-group">
+                                                        <label>الاجمالي</label>
+                                                        <input class="form-control form-control-sm" name="totals[]" type="text"
+                                                            placeholder="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-md-1">
+                                                    <div class="form-group">
+                                                        <label>&nbsp;</label>
+                                                        <button type="button" class="btn btn-success btn-sm btn-add">
+                                                            <i class="fa fa-plus" aria-hidden="true"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                    <!--end::Repeater-->
+<script>
+    $(function() {
+        $(document).on('click', '.btn-add', function(e) {
+            e.preventDefault();
+            var controlForm = $(this).closest('.fvrduplicate'),
+                currentEntry = $(this).parents('.entry:first'),
+                newEntry = $(currentEntry.clone()).appendTo(controlForm);
+            newEntry.find('input').val('');
+            controlForm.find('.entry:not(:last) .btn-add')
+                .removeClass('btn-add').addClass('btn-remove')
+                .removeClass('btn-success').addClass('btn-danger')
+                .html('<i class="fa fa-minus" aria-hidden="true"></i>');
+        }).on('click', '.btn-remove', function(e) {
+            $(this).closest('.entry').remove();
+            return false;
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+
+        $(document).on('change', 'select[name="sections[]"]', function() {
+            var selector = $(this).closest('.entry');
+            var section_id = $(this).val();
+
+            if (section_id) {
+                $.ajax({
+                    url: "{{ url('gete_product') }}/" + section_id,
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
+                        selector.find('select[name="products[]"]').empty(); // حذف الخيارات الحالية
+                        $.each(data, function(key, value) {
+                            selector.find('select[name="products[]"]').append(
+                                '<option value="' +
+                                value + '">' + key + '</option>');
+                        });
+                    },
+                    error: function() {
+                        console.log('AJAX request failed');
+                    }
+                });
+            } else {
+                console.log('AJAX load did not work');
+            }
+        });
+    });
+</script>
+
+--------------------------validation----------------------
+   public function rules()
+    {
+        return [
+            'List_Classes.*.Name' => 'required',
+            'List_Classes.*.Name_class_en' => 'required',
+        ];
+    }
+
+
+    public function messages()
+    {
+        return [
+            'Name.required' => trans('validation.required'),
+            'Name_class_en.required' => trans('validation.required'),
+        ];
+    }
+
+//----------------------ajax select bok فردي 
+
+<script>
+    $(document).ready(function() {
+        $(document).on('change', '.fee_id', function() {
+            var fee_id = $(this).val();
+
+//معناه نو يشتغل علي الصف الي فيه او اقرب مكان 
+            var mount_element = $(this).closest('[data-repeater-item]').find('.mounttt');
+
+//----------------------------
+            if (fee_id) {
+                $.ajax({
+                    url: '/invoice/get_mount_byfees/' + fee_id,
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
+                        mount_element.empty();
+                        mount_element.val(data);
+                    }
+                });
+            } else {
+                mount_element.empty();
+                console.log("bad");
+            }
+        });
+    });
+</script>

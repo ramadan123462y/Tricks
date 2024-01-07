@@ -1,0 +1,23 @@
+https://github.com/mckenziearts/laravel-notify
+
+مش هنحط 
+'providers' => [
+    ...
+    Mckenziearts\Notify\LaravelNotifyServiceProvider::class
+    ...
+];
+<x:notify-messages />
+
+هنحط دي فقط <!doctype html>
+<html>
+    <head>
+        <title>Laravel Notify</title>
+        @notifyCss
+    </head>
+    <body>
+
+
+        <x-notify::notify />
+        @notifyJs
+    </body>
+</html>

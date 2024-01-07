@@ -1,0 +1,2 @@
+https://techvblogs.com/blog/generate-qr-code-laravel-9
+https://harrk.dev/qr-code-generator-in-laravel-10-tutorial/

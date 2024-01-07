@@ -1,0 +1,39 @@
+{
+    public $products;
+    public $brands;
+    public $categories;
+    public $selectedCategory;
+    use WithPagination;
+    public $paginationTheme = 'bootstrap';
+
+    public function render()
+    {
+        $query = Product::with('colores', 'store');
+
+        if ($this->selectedCategory) {
+            $query->where('categorie_id', $this->selectedCategory);
+        }
+
+        $this->products = $query->get();
+        $this->brands = Brand::all();
+        $this->categories = Categorie::all();
+
+        return view('livewire.productdetails', [
+
+            'products' => $this->products,
+            'brands' => $this->brands,
+            'categories' => $this->categories,
+        ]);
+    }
+
+    public function filterByCategory($categoryId)
+    {
+        $this->selectedCategory = $categoryId;
+        $this->filterby_categorie($this->selectedCategory);
+    }
+
+    public function filterby_categorie($categorie_id)
+    {
+        $this->products = Product::with('colores', 'store')->where('categorie_id', $categorie_id)->get();
+    }
+}

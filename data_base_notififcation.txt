@@ -1,0 +1,24 @@
+الفكره دا جدول ثابت 
+3-
+php artisan notifications:table
+ 
+php artisan migrate
+-----------------
+1-php artisan make:notification InvoicePaid
+2-application's App\Models\User model by default:
+ use Notifiable;
+use Illuminate\Support\Facades\Notification;
+هنروح علئ الاشعارات نخليها database ونشيل mail
+4-sening 
+
+ $users = User::get();
+Notification::send($users, new Invoice());
+
+5-للعرض 
+  @php
+$user = \App\Models\User::find(Auth::user()->id);@endphp
+
+
+@foreach ($user->unreadNotifications as $notification)
+
+{"section":{"section_name":"\u062c\u062f\u064a\u062f","description":null,"updated_at":"2023-07-02T05:36:00.000000Z","created_at":"2023-07-02T05:36:00.000000Z","id":5}}

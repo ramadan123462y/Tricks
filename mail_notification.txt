@@ -1,0 +1,38 @@
+ php artisan make:notification OrederCreatedNotification
+
+
+MAIL_MAILER=smtp
+MAIL_HOST=mailpit
+MAIL_PORT=1025
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS="hello@example.com"
+MAIL_FROM_NAME="${APP_NAME}"
+
+
+
+ليا دعوه بدول غير كظا لا    public function __construct()
+    {
+
+
+    }
+
+
+    public function via($notifiable)
+    {
+        return ['mail'];
+    }
+
+
+    public function toMail($notifiable)
+    {
+        return (new MailMessage)
+        ->subject('New Order'.)
+                    ->line('The introduction to the notification.')
+                    ->action('Notification Action', url('/'))
+                    ->line('Thank you for using our application!');
+    }
+
+
+ Notification::send(Auth::guard('customer')->user(), new OrederCreatedNotification());

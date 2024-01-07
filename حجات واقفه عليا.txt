@@ -1,0 +1,20 @@
+
+$user=User::with(['mobile'=>function($q){
+
+$q->select('code','phone','user_id');
+
+}])->find(1);
+
+
+
+
+['mobile'=>function($q){
+
+$q->select('code','phone','user_id');
+
+}]
+
+//invoice system 
+1-middelware controller    permission
+
+3-export excel

@@ -1,0 +1,39 @@
+php artisan make:component Rsjfgsjh
+----------------------------------
+ public $type;
+    public function __construct($type="error")
+    {
+        $this->type=$type;
+
+    }
+
+----------------------------------
+<div>
+    <script>
+        @if (Session::has('message'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true
+            }
+            toastr.{{ $type }}("{{ session('message') }}");
+        @endif
+    </script>
+
+
+
+</div>
+-------------------------------------
+<div>
+    <script>
+        @if (Session::has('message'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true
+            }
+            toastr.{{ $type }}("{{ session('message') }}");
+        @endif
+    </script>
+
+
+
+</div>

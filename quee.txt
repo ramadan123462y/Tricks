@@ -1,0 +1,43 @@
+
+وظيفتها انها بتعمل تنفيذ للكود الكبير او عمليه كويري كبيره وهتاخد وقت في الخلفيه بدونتاثير علي السرفير عن طريق انها بتشتغل في الخلفيه مع استخدام المستخدم الموقع
+
+jops الي بتعمل كدا
+
+
+php artisan queue:table
+ -------------------------
+php artisan migrate
+-------------------------
+.env file:
+QUEUE_CONNECTION=database
+-------------------------
+php artisan make:job ProcessPodcast
+
+----------------------------------
+public function handle()
+    {
+        $users_id = User::where('status', 0)->pluck('id');
+        foreach ($users_id as $user) {
+            User::find($user)->update([
+
+                'status' => 1
+            ]);
+        }
+        return "users update";
+    }
+
+
+
+----------------------------------
+class UserController extends Controller
+{
+    public function index()
+    {
+        ActiveUserJop::dispatch();
+        return " processing";
+    }
+}
+----------------------------------
+
+بنشوف العمليات الي تمت او فشلت
+ php artisan queue:work

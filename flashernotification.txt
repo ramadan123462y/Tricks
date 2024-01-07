@@ -1,0 +1,3 @@
+https://php-flasher.io/laravel/
+
+php artisan vendor:publish --force

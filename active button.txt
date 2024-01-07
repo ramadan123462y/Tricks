@@ -1,0 +1,42 @@
+--------blade----------
+    <form action="{{ url('cart/store') }}"  method="post" >
+        @csrf
+    <div class="switches">
+
+        <label class="switch">
+            <input id="mycheckbox" type="checkbox" name="test" data-on="Yup" data-off="Nope" value="Nope">
+            <span class="slider round">
+                <span class="on">On</span>
+                <span class="off">Off</span>
+            </span>
+        </label>
+        <button type="submit" id="test-with-is" class="btn btn-outline-info">تاكيد</button>
+
+
+    </div>
+</form>
+
+$(document).ready(function(){
+    var check;
+$("#test-with-is").on("click", function(){
+    check = $("#mycheckbox").is(":checked");
+    if(check) {
+    $("#mycheckbox").val("true");
+
+    } else {
+        $("#mycheckbox").val("300");
+    }
+});
+});
+    </script>
+
+--controller--------------------
+ if($request->test=="true"){
+
+            return"good";
+        }else{
+
+            return"bad";
+        }
+--css---------
+اي style in chroom

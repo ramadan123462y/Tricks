@@ -1,0 +1,3 @@
+عن طريق بردو   events livewire
+
+https://sweetalert.js.org/guides/#installation

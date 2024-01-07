@@ -1,0 +1,1 @@
+https://websolutionstuff.com/post/laravel-9-toastr-notifications-example

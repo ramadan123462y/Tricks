@@ -1,0 +1,19 @@
+ //الموديل المستخدم 
+
+use Illuminate\Database\Eloquent\SoftDeletes;
+ use SoftDeletes;
+
+// الجدول المستخدم 
+$table->softDeletes();
+ //حذف  
+
+$student->delete();
+
+//  عرض المحذوف
+ $students = Student::onlyTrashed()->get();
+
+//  نرجع المحذوفات
+
+  Student::onlyTrashed()->find($request->id)->restore();
+//حذف المحذوفات  
+ Student::onlyTrashed()->find($request->id)->forceDelete();

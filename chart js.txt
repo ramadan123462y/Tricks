@@ -1,0 +1,51 @@
+----------------------charts-------------------
+https://github.com/fxcosta/laravel-chartjs
+
+
+
+//---------------------------
+
+
+
+public function index()
+    {
+
+        $chartjs = app()->chartjs
+            ->name('barChartTest')
+            ->type('bar')
+            ->size(['width' => 400, 'height' => 200])
+
+            ->labels(['الفواتير المدفوعه', ' الفواتير الغير مدفوعه', ' الفواتير المدفوعه حزئيا', 'الفواتير المؤرشفه'])
+            ->datasets([
+                [
+                    "label" => ['الفواتير المدفوعه', ' الفواتير الغير مدفوعه', ' الفواتير المدفوعه حزئيا', 'الفواتير المؤرشفه'],
+                    'backgroundColor' => ['#008000', '#FF0000', '#FFA500', '#000000'],
+                    'hoverBackgroundColor' => ['#008000', '#FF0000', '#FFA500', '#000000'],
+                    'data' => [69, 59, 3, 4]
+                ],
+
+
+
+            ])
+            ->options([]);
+
+        $chartjs2 = app()->chartjs
+            ->name('pieChartTest')
+            ->type('pie')
+            ->size(['width' => 400, 'height' => 300])
+            ->labels(['الفواتير المدفوعه', ' الفواتير الغير مدفوعه', ' الفواتير المدفوعه حزئيا', 'الفواتير المؤرشفه'])
+            ->datasets([
+                [
+                    'backgroundColor' => ['#008000', '#FF0000', '#FFA500', '#000000'],
+                    'hoverBackgroundColor' => ['#008000', '#FF0000', '#FFA500', '#000000'],
+                    'data' => [69, 59, 3, 4]
+                ],
+
+
+
+            ])
+            ->options([]);
+
+        return view('welcome', compact('chartjs', 'chartjs2'));
+    }
+}

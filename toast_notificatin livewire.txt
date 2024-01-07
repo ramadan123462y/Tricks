@@ -1,0 +1,64 @@
+هنستخدم disbatch event 
+ودا بيعمل event بس مش جوا components 
+بيعمه في الصفحه الاصليه خالص 
+
+
+
+//---------componet=controller----------
+ public function test()
+    {
+        $this->dispatchBrowserEvent('name-updated');
+    }
+
+//---------blade live wire----------
+<div>
+
+    {{-- {{ $count }} --}}
+
+    <button wire:click="test">success</button>
+
+
+</div>
+//---------------------------------------------------main blade------------
+<head>
+    {{-- ----------------- --}}
+    {{-- ----------------- --}}
+
+
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css" rel="stylesheet">
+
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+    @livewireStyles
+</head>
+
+<body>
+    @livewire('tests')
+    {{-- --------------------------- --}}
+    {{-- ------------------- --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+
+
+    <script>
+        window.addEventListener('name-updated', event => {
+//نفس العاديه 
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true
+            }
+            toastr.success("good");
+            // alert('Name updated to: ' + event.detail.newName);
+        })
+    </script>
+
+    
+
+
+    
+    @livewireScripts
+</body>

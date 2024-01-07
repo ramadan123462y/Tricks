@@ -1,0 +1,8 @@
+https://uiverse.io/all
+
+
+    <td>
+                        <button wire:click="edit({{ $my_parent->id }})" title="Edit"
+                                class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></button>
+                        <button type="button" class="btn btn-danger btn-sm" wire:click="delete({{ $my_parent->id }})" title="Delete"><i class="fa fa-trash"></i></button>
+                    </td>
